@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+<form action="." method="get">
+    <p>
+        <input type="text" name="title" placeholder="keywords">
+        <input type="submit" value="search">
+    </p>
+</form>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Director</th>
+        <th>Release Date</th>
+        <th>Genre</th>
+    </tr>
+    {% for obj in objects %}
+        <tr>
+            <td>{{ obj.id }}</td>
+            <td><a href="{% url "mov_detail" obj.id %}">{{ obj.title }}</a></td>
+            <td>{{ obj.director }}</td>
+            <td>{{ obj.release_date|naturalday }}</td>
+            <td>
+                {% for genre in obj.genres.all %}
+                    {{ genre }}{% if not forloop.last %},{% endif %}
+                {% endfor %}
+
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

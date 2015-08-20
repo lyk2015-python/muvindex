@@ -16,6 +16,15 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from movies.views import (index, movie_detail, actor_detail,
+                          register_user, login_user, logout_user)
+
 urlpatterns = [
+    url(r'^$', index, name='home'),
+    url(r'^movies/(?P<movie_id>[0-9]+)/$', movie_detail, name='mov_detail'),
+    url(r'^actors/(?P<actor_id>[0-9]+)/$', actor_detail, name='act_detail'),
+    url(r'^register$', register_user, name='register'),
+    url(r'^login', login_user, name='login'),
+    url(r'^logout', logout_user, name='logout'),
     url(r'^admin/', include(admin.site.urls)),
 ]

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+Title = {{ object.title }} <br>
+Description = {{ object.description }} <br>
+{% if object.release_date %}
+Release Date = {{ object.release_date }} <br>
+{% endif %}
+Director = <a href="{% url "act_detail" object.director.id %}">{{ object.director.name }}</a> <br>
+Avg. Score = {{ object.avg_score|floatformat }} <br>
+Genres = {{ object.genres_verbose }} <br>
+{% if object.image %}
+Image = <img src="{{ object.image }}" width="20%"> <br>
+{% endif %}
+
+<table>
+    <tr>
+        <th>Oyuncu</th>
+        <th>Karakter</th>
+    </tr>
+    {% for character in object.characters.all %}
+    <tr>
+        <td><a href="{% url "act_detail" character.person.id %}">{{ character.person.name }}</a>
+            {% if character.person.is_awarded %} <span class="isawarded">*</span> {% endif %} </td>
+        <td>{{ character.name }}</td>
+    </tr>
+    {% empty %}
+        <tr>
+            <td colspan="2">Sorry, no characters in this list.</td>
+        </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}

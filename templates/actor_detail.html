@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>{{ object.name }}</h3>
+{{ object.date_of_birth }} - {{ object.date_of_death|default:"∞" }} <br>
+{{ object.get_gender_display }} <br>
+<h3>Oynadığı Filmer</h3>
+{% for movie in movies %}
+    <a href="{% url "mov_detail" movie.id %}">{{ movie.title }}</a> <br>
+{% empty %}
+    Oynadığı film yok.
+{% endfor %}
+
+<h3>Yönettiği Filmer</h3>
+{% for movie in object.directed_movies.all %}
+    <a href="{% url "mov_detail" movie.id %}">{{ movie.title }}</a> <br>
+{% empty %}
+    Yönettiği film yok.
+{% endfor %}
+{% endblock %}

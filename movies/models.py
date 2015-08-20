@@ -26,6 +26,14 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
+    def avg_score(self):
+        if not self.scored_users.count():
+            return 0
+        return self.total_score / self.scored_users.count()
+
+    def genres_verbose(self):
+        return ', '.join(self.genres.values_list('name', flat=True))
+
 
 class Person(models.Model):
     GENDERS = [
