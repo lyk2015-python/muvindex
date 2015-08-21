@@ -31,4 +31,10 @@ Image = <img src="{{ object.image }}" width="20%"> <br>
     {% endfor %}
 
 </table>
+    <h3>Add a new character</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" />
+    </form>
 {% endblock %}

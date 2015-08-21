@@ -58,6 +58,11 @@ class Character(models.Model):
     person = models.ForeignKey(Person, related_name="characters")
     name = models.CharField(max_length=255)
 
+    class Meta:
+        unique_together = (
+            ('person', 'name'),
+        )
+
     def __str__(self):
         return self.name
 
